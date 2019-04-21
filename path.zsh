@@ -5,7 +5,8 @@ export PATH="$HOME/.node/bin:$PATH"
 export PATH="node_modules/.bin:vendor/bin:$PATH"
 
 # Android library
-export PATH="~/Library/Android/sdk/tools:~/Library/Android/sdk/platform-tools:$PATH"
+export ANDROID_HOME="$HOME/Library/Android/sdk"
+export PATH="$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH"
 
 # Make sure coreutils are loaded before system commands
 # I've disabled this for now because I only use "ls" which is
@@ -28,10 +29,6 @@ export PATH="$DOTFILES/bin:$PATH"
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
-
-# Alias for React Native packager
-alias rnios='react-native run-ios --simulator "iPhone 8"'
-alias rnan='react-native run-android'
 
 # Functions
 function take {

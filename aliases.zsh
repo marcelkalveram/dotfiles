@@ -25,3 +25,16 @@ alias gc="git checkout"
 alias gd="git diff"
 alias gl="git log --oneline --decorate --color"
 alias gnuke="git clean -df && git reset --hard"
+
+# Alias for React Native packager
+alias rnios='react-native run-ios --simulator "iPhone 8"'
+alias rniosreset="kill \$(lsof -t -i:8081); rm -rf ios/build/; react-native run-ios"
+alias rnan='react-native run-android'
+
+# Functions
+function take {
+	mkdir $1
+	cd $1
+}
+
+function cdl { cd $1; ls;}
