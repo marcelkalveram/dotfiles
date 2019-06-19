@@ -21,6 +21,10 @@ chsh -s $(which zsh)
 rm -rf $HOME/.zshrc
 ln -s $HOME/.dotfiles/.zshrc $HOME/.zshrc
 
+#  create symlinks for git configuration
+ln -s $HOME/.dotfiles/.global-gitignore $HOME/.global-gitignore
+ln -s $HOME/.dotfiles/.gitconfig $HOME/.gitconfig
+
 # Symlink the Mackup config file to the home directory
 ln -s $HOME/.dotfiles/.mackup.cfg $HOME/.mackup.cfg
 
