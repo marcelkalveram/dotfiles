@@ -84,7 +84,6 @@ cask "react-native-debugger"
 mas "1Password", id: 443987910
 mas "Clear", id: 504544917
 mas "Clocks", id: 414554506
-mas "Evernote", id: 406056744
 mas "Flycut", id: 442160987
 mas "iA Writer Classic", id: 439623248
 mas "iMovie", id: 408981434
