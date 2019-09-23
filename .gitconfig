@@ -8,6 +8,7 @@
     excludesfile = ~/.global-gitignore
     editor = code --wait
     autocrlf = input
+	pager = less
 
 [color "diff"]
     meta = yellow bold
@@ -33,7 +34,7 @@
     log = true
 
 [push]
-    default = matching
+	default = current
 
 [diff]
     tool = default-difftool
@@ -43,3 +44,5 @@
 [user]
 	name = Marcel Kalveram
 	email = marcel.kalveram@googlemail.com
+[branch]
+	autosetupmerge = always
