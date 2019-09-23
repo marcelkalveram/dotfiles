@@ -31,6 +31,12 @@ alias rnios='react-native run-ios --simulator "iPhone 8"'
 alias rniosreset="kill \$(lsof -t -i:8081); rm -rf ios/build/; react-native run-ios"
 alias rnan='react-native run-android'
 
+# Xcode
+alias xcs101='sudo xcode-select -s /Applications/Xcode_10.1.app/'
+alias xcs1021='sudo xcode-select -s /Applications/Xcode_10.1.app/'
+alias xcs103='sudo xcode-select -s /Applications/Xcode.app/'
+alias xcs11='sudo xcode-select -s /Applications/Xcode-beta.app/'
+
 # Functions
 function take {
 	mkdir $1
