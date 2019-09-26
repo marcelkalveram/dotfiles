@@ -24,7 +24,7 @@ alias gb="git branch"
 alias gc="git checkout"
 alias gd="git diff"
 alias gp="git push origin HEAD"
-alias gpf="git push origin HEAD --force"
+alias gpf="git push origin HEAD --force-with-lease"
 alias gl="git log --oneline --decorate --color"
 alias gnuke="git clean -df && git reset --hard"
 
