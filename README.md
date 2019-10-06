@@ -35,3 +35,6 @@ chmod +x ./install.sh && ./install.sh
 - Recover 1Password keychain from Dropbox
 - Sign in to Google and sync accounts
 - Remove unneeded apps from Dock
+- Restore fonts from backup drive
+- Restore .ssh folder from backup drive
+- In VS Code, run Shift + Command + P > Install 'code' command in PATH
