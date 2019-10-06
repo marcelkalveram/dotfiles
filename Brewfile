@@ -82,15 +82,11 @@ mas "Clear", id: 504544917
 mas "Clocks", id: 414554506
 mas "Flycut", id: 442160987
 mas "iA Writer Classic", id: 439623248
-mas "iMovie", id: 408981434
 mas "Keynote", id: 409183694
 mas "Momentum", id: 1030442215
 mas "MoneyWiz 2", id: 949724400
 mas "Numbers", id: 409203825
 mas "Pages", id: 409201541
-mas "Realm Browser", id: 1007457278
-mas "Skitch", id: 425955336
 mas "Speedtest", id: 1153157709
-mas "Tweetbot", id: 557168941
 mas "Wunderlist", id: 410628904
 mas "Xcode", id: 497799835
