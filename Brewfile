@@ -76,7 +76,6 @@ brew "z"
 brew "zlib"
 cask "android-platform-tools"
 cask "java"
-cask "java8"
 cask "react-native-debugger"
 mas "1Password", id: 443987910
 mas "Clear", id: 504544917
