@@ -14,3 +14,24 @@ Based on https://github.com/driesvints/dotfiles, inspired by https://github.com/
 cd $HOME/.dotfiles
 chmod +x ./install.sh && ./install.sh
 ```
+
+## Additional steps
+
+### Install App Store apps
+- Alfred
+- Moom
+- Sip
+
+### Install Non-App Store apps
+
+- Google Chrome
+- Dropbox
+- Visual Studio Code
+
+### Additional steps
+
+- Set up Moom shortcuts
+- Configure Finder sidebar items
+- Recover 1Password keychain from Dropbox
+- Sign in to Google and sync accounts
+- Remove unneeded apps from Dock
