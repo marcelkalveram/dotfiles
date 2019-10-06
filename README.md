@@ -11,6 +11,6 @@ Based on https://github.com/driesvints/dotfiles, inspired by https://github.com/
 2. Run the install file:
 
 ```
-chmod +x $HOME/.dotfiles/install.sh
-run ./install.sh
+cd $HOME/.dotfiles
+chmod +x ./install.sh && ./install.sh
 ```
