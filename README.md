@@ -18,15 +18,20 @@ chmod +x ./install.sh && ./install.sh
 ## Additional steps
 
 ### Install App Store apps
+
 - Alfred
 - Moom
 - Sip
+- Snippets Lab
 
 ### Install Non-App Store apps
 
 - Google Chrome
 - Dropbox
 - Visual Studio Code
+- Android Studio 3.5.1
+- Older Xcode versions: 10.1, 10.2 and 10.3
+- Text Expander
 
 ### Additional steps
 
