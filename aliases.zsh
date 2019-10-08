@@ -2,6 +2,7 @@
 alias copyssh="pbcopy < $HOME/.ssh/id_rsa.pub"
 alias reloadcli="source $HOME/.zshrc"
 alias c="clear"
+alias npmg="npm list -g --depth 0"
 
 # Directories
 alias dotfiles="cd $DOTFILES"
