@@ -6,7 +6,10 @@ export PATH="node_modules/.bin:vendor/bin:$PATH"
 
 # Android library
 export ANDROID_HOME="$HOME/Library/Android/sdk"
-export PATH="$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH"
+export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH"
+
+# Specify Java version
+export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 
 # Make sure coreutils are loaded before system commands
 # I've disabled this for now because I only use "ls" which is
