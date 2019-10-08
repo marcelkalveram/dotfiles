@@ -27,6 +27,7 @@ chmod +x ./install.sh && ./install.sh
 ### Install Non-App Store apps
 
 - Google Chrome
+- Google Backup and Sync
 - Dropbox
 - Visual Studio Code
 - Android Studio 3.5.1
@@ -43,3 +44,4 @@ chmod +x ./install.sh && ./install.sh
 - Restore fonts from backup drive
 - Restore .ssh folder from backup drive
 - In VS Code, run Shift + Command + P > Install 'code' command in PATH
+- Install VS Code extensions
