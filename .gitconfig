@@ -1,7 +1,18 @@
 [alias]
-    mylog = log --pretty=format:'%h %s [%an]' --graph
-    lol = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    l = log --oneline --decorate --color
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    lol = log --graph --decorate --pretty=oneline --abbrev-commit --all
+
+    fo = fetch origin
+    p = pull
+    st = status
+    b = branch
+    c = checkout
+    cb = checkout -b 
+    d = diff
+    p = push origin HEAD
+    pf = push origin HEAD --force-with-lease
+    nuke = git clean -df && git reset --hard
 
 [core]
     # Use custom `.gitignore` and `.gitattributes`

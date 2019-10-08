@@ -16,17 +16,7 @@ alias vreload="vagrant reload"
 alias vrebuild="vagrant destroy --force && vagrant up"
 
 # Git
-alias commit="git add . && git commit -m"
-alias gcommit="git add . && git commit"
-alias wip="commit wip"
-alias gst="git status"
-alias gb="git branch"
-alias gc="git checkout"
-alias gd="git diff"
-alias gp="git push origin HEAD"
-alias gpf="git push origin HEAD --force-with-lease"
-alias gl="git log --oneline --decorate --color"
-alias gnuke="git clean -df && git reset --hard"
+alias g="git"
 
 # Alias for React Native packager
 alias rnios='react-native run-ios'
