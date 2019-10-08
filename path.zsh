@@ -29,11 +29,3 @@ export PATH="$DOTFILES/bin:$PATH"
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
-
-# Functions
-function take {
-    mkdir $1
-    cd $1
-}
-
-function cdl { cd $1; ls;}
