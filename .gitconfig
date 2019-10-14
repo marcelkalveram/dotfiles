@@ -1,19 +1,25 @@
 [alias]
     l = log --oneline --decorate --color
     lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-    lol = log --graph --decorate --pretty=oneline --abbrev-commit --all
 
+    st = status
+    d = diff
     a = add .
     m = commit -m
-    fo = fetch origin
-    p = pull
-    st = status
+
     b = branch
     c = checkout
     cb = checkout -b 
-    d = diff
-    p = push origin HEAD
-    pf = push origin HEAD --force-with-lease
+
+    fo = fetch origin
+    pl = pull origin HEAD
+    ps = push origin HEAD
+    psf = push origin HEAD --force-with-lease
+
+    rbd = rebase origin/develop
+    rbm = rebase origin/master
+    rbc = rebase --continue
+
     nuke = git clean -df && git reset --hard
 
 [core]
