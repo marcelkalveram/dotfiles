@@ -38,9 +38,22 @@ alias rnios-xr='react-native run-ios --simulator "iPhone XR"'
 
 # Xcode
 alias xcs101='sudo xcode-select -s /Applications/Xcode_10.1.app/'
-alias xcs1021='sudo xcode-select -s /Applications/Xcode_10.1.app/'
-alias xcs103='sudo xcode-select -s /Applications/Xcode.app/'
-alias xcs11='sudo xcode-select -s /Applications/Xcode-beta.app/'
+alias xcs1021='sudo xcode-select -s /Applications/Xcode_10.2.app/'
+alias xcs103='sudo xcode-select -s /Applications/Xcode_10.3.app/'
+alias xcs11='sudo xcode-select -s /Applications/Xcode.app/'
+
+function findprocess {
+  sudo lsof -i | grep $1
+}
+
+# find process running on a port
+function findport {
+  sudo lsof -i :$1
+}
+
+function killprocess {
+  kill -9 $1
+}
 
 # Functions
 function take {
