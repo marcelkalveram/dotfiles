@@ -18,6 +18,7 @@ alias vrebuild="vagrant destroy --force && vagrant up"
 
 # Git
 alias g="git"
+alias prunelocal="git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' | xargs git branch -d"
 
 # Alias for React Native packager
 alias rnios='react-native run-ios'
@@ -25,22 +26,30 @@ alias rniosreset="kill \$(lsof -t -i:8081); rm -rf ios/build/; react-native run-
 alias rnan='react-native run-android'
 
 # React Native simulators
+alias rnios-se='react-native run-ios --simulator "iPhone SE"'
 alias rnios-6='react-native run-ios --simulator "iPhone 6"'
-alias rnios-6p='react-native run-ios --simulator "iPhone 6 Plus"'
+alias rnios-6p='react-native run-ios --simulator "iPhone 6s Plus"'
 alias rnios-7='react-native run-ios --simulator "iPhone 7"'
 alias rnios-7p='react-native run-ios --simulator "iPhone 7 Plus"'
 alias rnios-8='react-native run-ios --simulator "iPhone 8"'
 alias rnios-8p='react-native run-ios --simulator "iPhone 8 Plus"'
 alias rnios-x='react-native run-ios --simulator "iPhone X"'
-alias rnios-xs='react-native run-ios --simulator "iPhone XS"'
+alias rnios-xs='react-native run-ios --simulator "iPhone Xs"'
 alias rnios-xsm='react-native run-ios --simulator "iPhone XS Max"'
-alias rnios-xr='react-native run-ios --simulator "iPhone XR"'
+alias rnios-xr='react-native run-ios --simulator "iPhone Xʀ"'
+alias rnios-11='react-native run-ios --simulator "iPhone 11"'
+alias rnios-11p='react-native run-ios --simulator "iPhone 11 Pro"'
 
-# Xcode
-alias xcs101='sudo xcode-select -s /Applications/Xcode_10.1.app/'
-alias xcs1021='sudo xcode-select -s /Applications/Xcode_10.2.app/'
-alias xcs103='sudo xcode-select -s /Applications/Xcode_10.3.app/'
-alias xcs11='sudo xcode-select -s /Applications/Xcode.app/'
+alias rnan-7='emulator -avd Nexus_5_API_24'
+alias rnan-7.1='emulator -avd Pixel_API_25'
+alias rnan-8='emulator -avd Nexus_5X_API_26'
+alias rnan-8.1='emulator -avd Nexus_6_API_27'
+alias rnan-9='emulator -avd Pixel_XL_API_28'
+alias rnan-10='emulator -avd Pixel_3_API_29'
+
+alias iossims='instruments -s devices'
+alias iossims-booted='xcrun simctl list devices | grep "Booted"'
+alias avdsims='emulator -list-avds'
 
 function findprocess {
   sudo lsof -i | grep $1

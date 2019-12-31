@@ -12,18 +12,17 @@
     cb = checkout -b 
 
     fo = fetch origin
-    pl = pull origin HEAD
-    ps = push origin HEAD
-    psf = push origin HEAD --force-with-lease
+    pl = pull
+    ps = push -u
+    psf = push --force-with-lease
 
     rbd = rebase origin/develop
     rbm = rebase origin/master
     rbc = rebase --continue
 
-    nuke = git clean -df && git reset --hard
+    v = branch -vv
 
-    prunelocal = branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' | xargs git branch -d
-    pruneremote = git remote prune origin
+    pruneremote = remote prune origin
 
 [core]
     # Use custom `.gitignore` and `.gitattributes`
