@@ -13,7 +13,7 @@
 
     fo = fetch origin
     pl = pull
-    ps = push -u
+    ps = push
     psf = push --force-with-lease
 
     rbd = rebase origin/develop
