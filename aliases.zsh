@@ -24,6 +24,7 @@ alias prunelocal="git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git
 alias rnios='react-native run-ios'
 alias rniosreset="kill \$(lsof -t -i:8081); rm -rf ios/build/; react-native run-ios"
 alias rnan='react-native run-android'
+alias rndeps='yarn install && cd ios && pod install && cd ..'
 
 # React Native simulators
 alias rnios-se='react-native run-ios --simulator "iPhone SE"'
@@ -39,6 +40,7 @@ alias rnios-xsm='react-native run-ios --simulator "iPhone XS Max"'
 alias rnios-xr='react-native run-ios --simulator "iPhone Xʀ"'
 alias rnios-11='react-native run-ios --simulator "iPhone 11"'
 alias rnios-11p='react-native run-ios --simulator "iPhone 11 Pro"'
+alias rnios-ipad='react-native run-ios --simulator "iPad Air (3rd generation) (13.3)"'
 
 alias rnan-7='emulator -avd Nexus_5_API_24'
 alias rnan-7.1='emulator -avd Pixel_API_25'
