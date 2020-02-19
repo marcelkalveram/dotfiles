@@ -13,7 +13,9 @@
 
     fo = fetch origin
     pl = pull
+    plo = pull origin HEAD
     ps = push
+    pso = push origin HEAD
     psf = push --force-with-lease
 
     rbd = rebase origin/develop
@@ -67,3 +69,4 @@
 	email = marcel.kalveram@googlemail.com
 [branch]
 	autosetupmerge = always
+	autosetuprebase = always
