@@ -19,6 +19,10 @@ alias vrebuild="vagrant destroy --force && vagrant up"
 # Git
 alias g="git"
 alias prunelocal="git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' | xargs git branch -d"
+alias gca="git add . && git commit --amend"
+alias grbc="git add . && git rebase --continue"
+alias grbs="git rebase --skip"
+alias gsync="git pull -r && git push"
 
 # Alias for React Native packager
 alias rnios='react-native run-ios'
