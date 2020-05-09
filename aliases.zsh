@@ -30,6 +30,10 @@ alias rniosreset="kill \$(lsof -t -i:8081); rm -rf ios/build/; react-native run-
 alias rnan='react-native run-android'
 alias rndeps='yarn install && cd ios && pod install && cd ..'
 
+# Delete React Native folders
+alias rimrafandroid="rm -rf android/app/build"
+alias rimrafios="rm -rf ios/build"
+
 # React Native simulators
 alias rnios-se='react-native run-ios --simulator "iPhone SE"'
 alias rnios-6='react-native run-ios --simulator "iPhone 6"'
@@ -52,6 +56,14 @@ alias rnan-8='emulator -avd Nexus_5X_API_26'
 alias rnan-8.1='emulator -avd Nexus_6_API_27'
 alias rnan-9='emulator -avd Pixel_XL_API_28'
 alias rnan-10='emulator -avd Pixel_3_API_29'
+
+# ADB
+alias adbd='adb devices'
+alias adbun='adb uninstall'
+# List all packages
+alias adbp="adb shell 'pm list packages -f' | sed -e 's/.*=//' | sort"
+# List all user-installed packages
+alias adbpu="adb shell 'pm list packages -3' | cut -f 2 -d ':'"
 
 alias iossims='instruments -s devices'
 alias iossims-booted='xcrun simctl list devices | grep "Booted"'
