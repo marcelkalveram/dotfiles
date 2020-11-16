@@ -24,8 +24,10 @@ export PATH="/usr/local/heroku/bin:$PATH"
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 # rbenv
-export PATH="~/.rbenv/shims:$PATH"
-# PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+export PATH="$HOME/.rbenv/shims:$PATH"
+
+# Cocoapods
+export PATH="$HOME/.gem/ruby/2.6.0/bin:$PATH"
 
 # Load custom commands
 export PATH="$DOTFILES/bin:$PATH"
