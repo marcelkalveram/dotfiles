@@ -18,11 +18,12 @@ alias vrebuild="vagrant destroy --force && vagrant up"
 
 # Git
 alias g="git"
-alias prunelocal="git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' | xargs git branch -d"
+alias prunelocal="git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' | xargs git branch -D"
 alias gca="git add . && git commit --amend"
 alias grbc="git add . && git rebase --continue"
 alias grbs="git rebase --skip"
 alias gsync="git pull -r && git push"
+alias gmc="git add . && git commit"
 
 # Alias for React Native packager
 alias rnios='react-native run-ios'
@@ -56,6 +57,7 @@ alias rnan-8='emulator -avd Nexus_5X_API_26'
 alias rnan-8.1='emulator -avd Nexus_6_API_27'
 alias rnan-9='emulator -avd Pixel_XL_API_28'
 alias rnan-10='emulator -avd Pixel_3_API_29'
+alias rnan-aosp='emulator -avd Pixel_API_28_AOSP'
 
 # ADB
 alias adbd='adb devices'
@@ -68,37 +70,3 @@ alias adbpu="adb shell 'pm list packages -3' | cut -f 2 -d ':'"
 alias iossims='instruments -s devices'
 alias iossims-booted='xcrun simctl list devices | grep "Booted"'
 alias avdsims='emulator -list-avds'
-
-function findprocess {
-  sudo lsof -i | grep $1
-}
-
-# find process running on a port
-function findport {
-  sudo lsof -i :$1
-}
-
-function killprocess {
-  kill -9 $1
-}
-
-# Functions
-function take {
-	mkdir $1
-	cd $1
-}
-
-function cdl { cd $1; ls;}
-
-# iOS - find architectures in framework file (e.g. 'architectures XYZ.framework/XYZ')
-function architectures() {
-  if $(lipo -info $1 | grep -q 'not a fat file'); then
-    lipo -info $1 | awk -F ': ' '/Non-fat file/ { print $3 }'
-  else
-    lipo -detailed_info $1 | awk '/^architecture / { print $2 }'
-  fi
-}
-
-if [[ $(basename $0) == 'architectures' ]]; then
-  architectures $1
-fi
