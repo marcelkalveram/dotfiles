@@ -14,6 +14,8 @@ ZSH_THEME="powerlevel9k/powerlevel9k"
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(status history time)
 
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=6"
+
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -56,7 +58,7 @@ ZSH_CUSTOM=$DOTFILES
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(node npm z extract copydir colored-man-pages adb alias-finder autojump)
+plugins=(node npm z extract copydir colored-man-pages adb alias-finder autojump yarn zsh-autosuggestions)
 
 # Activate Oh-My-Zsh
 source $ZSH/oh-my-zsh.sh
@@ -91,4 +93,5 @@ export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
     
 # load rbenv
-eval "$(rbenv init -)"
+export RBENV_ROOT=/usr/local/var/rbenv
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
