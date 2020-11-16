@@ -22,6 +22,9 @@
     rbm = rebase origin/master
     rbc = rebase --continue
 
+    mm = merge master
+    md = merge develop
+
     v = branch -vv
 
     pruneremote = remote prune origin
@@ -64,9 +67,11 @@
 
 [difftool "default-difftool"]
     cmd = code --wait --diff $LOCAL $REMOTE
+
 [user]
 	name = Marcel Kalveram
 	email = marcel.kalveram@googlemail.com
+
 [branch]
 	autosetupmerge = always
 	autosetuprebase = always
