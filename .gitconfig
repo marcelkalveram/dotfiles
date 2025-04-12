@@ -68,10 +68,18 @@
 [difftool "default-difftool"]
     cmd = code --wait --diff $LOCAL $REMOTE
 
-[user]
-	name = Marcel Kalveram
-	email = marcel.kalveram@googlemail.com
-
 [branch]
 	autosetupmerge = always
 	autosetuprebase = always
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
+[user]
+	name = Marcel Kalveram
+	email = marcel.kalveram@googlemail.com
+[init]
+	defaultBranch = main
