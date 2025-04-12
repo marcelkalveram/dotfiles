@@ -5,11 +5,12 @@ export PATH="$HOME/.node/bin:$PATH"
 export PATH="node_modules/.bin:vendor/bin:$PATH"
 
 # Android library
-export ANDROID_HOME="$HOME/Library/Android/sdk"
-export PATH="$ANDROID_HOME/emulator:$ANDROID_HOME/tools:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools:$PATH"
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # Specify Java version
-export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-17.jdk/Contents/Home
 
 # Make sure coreutils are loaded before system commands
 # I've disabled this for now because I only use "ls" which is
@@ -20,17 +21,13 @@ export JAVA_HOME=$(/usr/libexec/java_home -v 1.8)
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 export PATH="/usr/local/heroku/bin:$PATH"
 
-# yarn
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+# yarn bins
+export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 # rbenv
 export PATH="$HOME/.rbenv/shims:$PATH"
 
-# Cocoapods
-export PATH="$HOME/.gem/ruby/2.6.0/bin:$PATH"
-
 # Load custom commands
 export PATH="$DOTFILES/bin:$PATH"
 
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+export XDG_CONFIG_HOME="$HOME/.dotfiles/.config"
