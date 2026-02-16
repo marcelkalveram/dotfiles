@@ -96,19 +96,3 @@ fi
 # load rbenv
 # export RBENV_ROOT=/usr/local/var/rbenv
 # if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/marcelkalveram/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/marcelkalveram/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/marcelkalveram/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/marcelkalveram/google-cloud-sdk/completion.zsh.inc'; fi
-
-# Volta
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
-unset _VOLTA_TOOL_RECURSION in each
-
-# PyEnv
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"

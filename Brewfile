@@ -55,7 +55,6 @@ brew "libxml2"
 brew "libxslt"
 brew "libyaml"
 brew "little-cms2"
-brew "mackup"
 brew "makedepend"
 brew "mas"
 brew "python@2"
@@ -79,17 +78,3 @@ brew "zlib"
 cask "adoptopenjdk8"
 cask "android-platform-tools"
 cask "java"
-cask "react-native-debugger"
-mas "1Password", id: 443987910
-mas "Clear", id: 504544917
-mas "Clocks", id: 414554506
-mas "Flycut", id: 442160987
-mas "iA Writer Classic", id: 439623248
-mas "Keynote", id: 409183694
-mas "Momentum", id: 1030442215
-mas "MoneyWiz 2", id: 949724400
-mas "Numbers", id: 409203825
-mas "Pages", id: 409201541
-mas "Speedtest", id: 1153157709
-mas "Wunderlist", id: 410628904
-mas "Xcode", id: 497799835

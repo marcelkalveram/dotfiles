@@ -80,6 +80,7 @@
 
 [user]
 	name = Marcel Kalveram
-	email = marcel.kalveram@googlemail.com
+	email = marcel.kalveram@gmail.com
+    
 [init]
 	defaultBranch = main

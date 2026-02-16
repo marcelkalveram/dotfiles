@@ -17,31 +17,25 @@ chmod +x ./install.sh && ./install.sh
 
 ## Additional steps
 
-### Install App Store apps
-
-- Alfred
-- Moom
-- Sip
-- Snippets Lab
-
 ### Install Non-App Store apps
 
 - Google Chrome
-- Google Backup and Sync
-- Dropbox
-- Visual Studio Code
-- Android Studio 3.5.1
-- Older Xcode versions: 10.1, 10.2 and 10.3
-- Text Expander
+- Cursor
+- Espanso
+- Rectangle
+- Alfred
+- 1Password
+- Warp or Ghostty
+- Logitech+ Options
 
 ### Additional steps
 
-- Set up Moom shortcuts
-- Configure Finder sidebar items
-- Recover 1Password keychain from Dropbox
-- Sign in to Google and sync accounts
 - Remove unneeded apps from Dock
+- Set up Espanso shortcuts: console.log() and emails
+- Configure Finder sidebar items
+- Sign in to Google and sync accounts
 - Restore fonts from backup drive
 - Restore .ssh folder from backup drive
-- In VS Code, run Shift + Command + P > Install 'code' command in PATH
-- Install VS Code extensions
+- In Cursor, run Shift + Command + P > Install 'cursor' command in PATH
+- Install Cursor extensions
+- Remove CMD+K agent keyboard shortcut in Cursor
