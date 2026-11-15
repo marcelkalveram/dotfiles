@@ -38,15 +38,31 @@ brew update
 # Install all our dependencies with bundle (See Brewfile)
 brew bundle
 
-# Install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+# Install oh-my-zsh. Skip when it is already there: the installer exits if
+# $ZSH is exported (as it is in .zshrc) and that directory exists.
+omz_dir="${ZSH:-$HOME/.oh-my-zsh}"
+if [ -d "$omz_dir" ]; then
+  echo "Oh My Zsh is already installed at $omz_dir."
+else
+  # Unset ZSH so a value exported by the current shell cannot redirect the install.
+  ZSH= RUNZSH=no CHSH=no KEEP_ZSHRC=yes \
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+fi
 
-# Install Ruby and set global version
-rbenv install 2.6.5
-rbenv global 2.6.5
+# Ruby 2.6 is end of life and fails to build on current macOS (arm64).
+ruby_version=4.0.9
+rbenv install -s "$ruby_version"
+rbenv global "$ruby_version"
 
-# Make ZSH the default shell environment
-chsh -s $(which zsh)
+# Make ZSH the default shell. chsh prompts for a password and exits with
+# "no changes made" when the login shell is already the requested path.
+zsh_path=$(command -v zsh)
+current_shell=$(dscl . -read "/Users/$(id -un)" UserShell 2>/dev/null | awk '{print $2}')
+if [ -n "$zsh_path" ] && [ "$current_shell" = "$zsh_path" ]; then
+  echo "Login shell is already $zsh_path."
+else
+  chsh -s "$zsh_path"
+fi
 
 # Removes .zshrc from $HOME (if it exists) and symlinks the .zshrc file from the .dotfiles
 rm -rf $HOME/.zshrc
