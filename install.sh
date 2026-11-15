@@ -50,9 +50,11 @@ else
 fi
 
 # Ruby 2.6 is end of life and fails to build on current macOS (arm64).
+# rbenv install prints a note to run `rbenv global`; the next line does that.
 ruby_version=4.0.9
 rbenv install -s "$ruby_version"
 rbenv global "$ruby_version"
+echo "Default Ruby is $ruby_version."
 
 # Make ZSH the default shell. chsh prompts for a password and exits with
 # "no changes made" when the login shell is already the requested path.
@@ -64,13 +66,10 @@ else
   chsh -s "$zsh_path"
 fi
 
-# Removes .zshrc from $HOME (if it exists) and symlinks the .zshrc file from the .dotfiles
-rm -rf $HOME/.zshrc
-ln -s $HOME/.dotfiles/.zshrc $HOME/.zshrc
-
-#  create symlinks for git configuration
-ln -s $HOME/.dotfiles/.global-gitignore $HOME/.global-gitignore
-ln -s $HOME/.dotfiles/.gitconfig $HOME/.gitconfig
+# Point the home files at this repo. -fn replaces a file or symlink that is already there.
+ln -sfn "$HOME/.dotfiles/.zshrc" "$HOME/.zshrc"
+ln -sfn "$HOME/.dotfiles/.global-gitignore" "$HOME/.global-gitignore"
+ln -sfn "$HOME/.dotfiles/.gitconfig" "$HOME/.gitconfig"
 
 # Set macOS preferences
 # We will run this last because this will reload the shell
