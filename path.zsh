@@ -10,6 +10,14 @@ export PATH="node_modules/.bin:vendor/bin:$PATH"
 # Local bin directories before anything else
 export PATH="/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 
+# Homebrew. Apple Silicon installs to /opt/homebrew, which is not on PATH
+# until this runs. Intel Macs use /usr/local.
+if [[ -x /opt/homebrew/bin/brew ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -x /usr/local/bin/brew ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"
+fi
+
 # yarn bins
 export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 

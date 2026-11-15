@@ -2,16 +2,40 @@
 
 echo "Setting up your Mac..."
 
-# Check for Homebrew and install if we don't have it
-if test ! $(which brew); then
-  /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# Homebrew lives in /opt/homebrew on Apple Silicon and /usr/local on Intel.
+# A new shell does not have that directory on PATH until shellenv runs.
+add_brew_to_path() {
+  if command -v brew >/dev/null 2>&1; then
+    return 0
+  fi
+
+  if [ -x /opt/homebrew/bin/brew ]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [ -x /usr/local/bin/brew ]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+  fi
+}
+
+add_brew_to_path
+
+# The Ruby installer at Homebrew/install/master/install was removed and returns
+# 404. Without this, the script continues and every later brew call fails.
+if ! command -v brew >/dev/null 2>&1; then
+  echo "Installing Homebrew..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  add_brew_to_path
+fi
+
+if ! command -v brew >/dev/null 2>&1; then
+  echo "Homebrew installation failed; brew is still not on PATH." >&2
+  exit 1
 fi
 
 # Update Homebrew recipes
 brew update
 
+# brew bundle ships with Homebrew. The homebrew/bundle tap was archived.
 # Install all our dependencies with bundle (See Brewfile)
-brew tap homebrew/bundle
 brew bundle
 
 # Install oh-my-zsh
