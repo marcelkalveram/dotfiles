@@ -21,19 +21,19 @@ chmod +x ./install.sh && ./install.sh
 
 - Google Chrome
 - Cursor
-- Espanso
-- Rectangle
-- Alfred
-- 1Password
-- Warp or Ghostty
-- Logitech+ Options
+- Raycast
+- 1Password and browser extensions
+- Warp Terminal
+- Logi Options+
+- Ollama (local models)
+- Todoist
 
 ### Additional steps
 
 - Remove unneeded apps from Dock
-- Set up Espanso shortcuts: console.log() and emails
 - Configure Finder sidebar items
 - Sign in to Google and sync accounts
+- Sign in to Cursor and Logi Options+ to sync settings
 - Restore fonts from backup drive
 - Restore .ssh folder from backup drive
 - In Cursor, run Shift + Command + P > Install 'cursor' command in PATH

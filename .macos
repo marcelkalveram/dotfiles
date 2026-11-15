@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 
 # Thanks to Mathias Bynens! https://mths.be/macos
+#
+# Kept to settings that still apply on Apple Silicon and current macOS.
+# Commands the system ignores now are gone. A few that moved use the
+# current key or tool.
 
 # Ask for the administrator password upfront
 sudo -v
@@ -12,14 +16,10 @@ while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 # General UI/UX                                                               #
 ###############################################################################
 
-# Set standby delay to 24 hours (default is 1 hour)
-sudo pmset -a standbydelay 10800
-
-# Disable the sound effects on boot
-sudo nvram SystemAudioVolume=" "
-
-# Set sidebar icon size to medium
-defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 2
+# Mute the startup chime. On Apple Silicon this is StartupMute
+# (%01 muted, %00 on). The same switch is
+# System Settings → Sound → Play sound on startup.
+sudo nvram StartupMute=%01
 
 # Increase window resize speed for Cocoa applications
 defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
@@ -27,18 +27,9 @@ defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
 # Automatically quit printer app once the print jobs complete
 defaults write com.apple.print.PrintingPrefs "Quit When Finished" -bool true
 
-# Disable the “Are you sure you want to open this application?” dialog
-defaults write com.apple.LaunchServices LSQuarantine -bool false
-
-# Remove duplicates in the “Open With” menu (also see `lscleanup` alias) - broken!!!
-# /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -kill -r -domain local -domain system -domain user
-
 # Reveal IP address, hostname, OS version, etc. when clicking the clock
 # in the login window
 sudo defaults write /Library/Preferences/com.apple.loginwindow AdminHostInfo HostName
-
-# Check for software updates daily, not just once per week
-defaults write com.apple.SoftwareUpdate ScheduleFrequency -int 1
 
 # Disable smart quotes as they’re annoying when typing code
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
@@ -49,9 +40,6 @@ defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 ###############################################################################
 # Trackpad, mouse, keyboard, Bluetooth accessories, and input                 #
 ###############################################################################
-
-# Increase sound quality for Bluetooth headphones/headsets
-defaults write com.apple.BluetoothAudioAgent "Apple Bitpool Min (editable)" -int 40
 
 # Set language and text formats
 # Note: if you’re in the US, replace `EUR` with `USD`, `Centimeters` with
@@ -71,16 +59,15 @@ defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 # Screen                                                                      #
 ###############################################################################
 
-# Require password immediately after sleep or screen saver begins
-defaults write com.apple.screensaver askForPassword -int 1
-defaults write com.apple.screensaver askForPasswordDelay -int 0
+# Require a password immediately after sleep or the screen saver starts.
+# com.apple.screensaver askForPassword has been ignored since High Sierra.
+# This prompts for the account password; sudo does not replace that prompt.
+echo "Setting the lock screen to require a password immediately..."
+sysadminctl -screenLock immediate -password -
 
 ###############################################################################
 # Finder                                                                      #
 ###############################################################################
-
-# Finder: disable window animations and Get Info animations
-defaults write com.apple.finder DisableAllAnimations -bool true
 
 # Finder: show path bar
 defaults write com.apple.finder ShowPathbar -bool true
@@ -91,20 +78,22 @@ defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 # Disable the warning when changing a file extension
 defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
 
-# Enable snap-to-grid for icons on the desktop and in other icon views
-/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" $HOME/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:arrangeBy grid" $HOME/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:arrangeBy grid" $HOME/Library/Preferences/com.apple.finder.plist
-
-# Increase grid spacing for icons on the desktop and in other icon views
-/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:gridSpacing 100" $HOME/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:gridSpacing 100" $HOME/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:gridSpacing 100" $HOME/Library/Preferences/com.apple.finder.plist
-
-# Increase the size of icons on the desktop and in other icon views
-/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:iconSize 80" $HOME/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :FK_StandardViewSettings:IconViewSettings:iconSize 80" $HOME/Library/Preferences/com.apple.finder.plist
-/usr/libexec/PlistBuddy -c "Set :StandardViewSettings:IconViewSettings:iconSize 80" $HOME/Library/Preferences/com.apple.finder.plist
+# Snap desktop and icon-view items to a grid, and set spacing and icon size.
+# `Set` fails when Finder has not created the key yet, so add it then.
+for view in DesktopViewSettings FK_StandardViewSettings StandardViewSettings; do
+  /usr/libexec/PlistBuddy -c "Set :${view}:IconViewSettings:arrangeBy grid" \
+    "$HOME/Library/Preferences/com.apple.finder.plist" 2>/dev/null \
+    || /usr/libexec/PlistBuddy -c "Add :${view}:IconViewSettings:arrangeBy string grid" \
+      "$HOME/Library/Preferences/com.apple.finder.plist"
+  /usr/libexec/PlistBuddy -c "Set :${view}:IconViewSettings:gridSpacing 100" \
+    "$HOME/Library/Preferences/com.apple.finder.plist" 2>/dev/null \
+    || /usr/libexec/PlistBuddy -c "Add :${view}:IconViewSettings:gridSpacing integer 100" \
+      "$HOME/Library/Preferences/com.apple.finder.plist"
+  /usr/libexec/PlistBuddy -c "Set :${view}:IconViewSettings:iconSize 80" \
+    "$HOME/Library/Preferences/com.apple.finder.plist" 2>/dev/null \
+    || /usr/libexec/PlistBuddy -c "Add :${view}:IconViewSettings:iconSize integer 80" \
+      "$HOME/Library/Preferences/com.apple.finder.plist"
+done
 
 # Use list view in all Finder windows by default
 # Four-letter codes for the other view modes: `icnv`, `clmv`, `Flwv`
@@ -113,11 +102,8 @@ defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 # Disable the warning before emptying the Trash
 defaults write com.apple.finder WarnOnEmptyTrash -bool false
 
-# Enable AirDrop over Ethernet and on unsupported Macs running Lion
-defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
-
 # Show the ~/Library folder
-chflags nohidden $HOME/Library
+chflags nohidden "$HOME/Library"
 
 # Expand the following File Info panes:
 # “General”, “Open with”, and “Sharing & Permissions”
@@ -126,44 +112,29 @@ defaults write com.apple.finder FXInfoPanesExpanded -dict \
     OpenWith -bool true \
     Privileges -bool true
 
-# Auto hide menu bar
-defaults write NSGlobalDomain _HIHideMenuBar -bool false
-
-# Show hidden files
-defaults write com.apple.finder AppleShowAllFiles YES
+# Show hidden files. The value has to be a boolean; a bare YES is stored as text.
+defaults write com.apple.finder AppleShowAllFiles -bool true
 
 ###############################################################################
-# Dock, Dashboard, and hot corners                                            #
+# Dock                                                                        #
 ###############################################################################
 
-# Dark menu bar and dock
-defaults write $HOME/Library/Preferences/.GlobalPreferences.plist AppleInterfaceTheme -string "Dark"
+# Dark menu bar and Dock. AppleInterfaceStyle replaced AppleInterfaceTheme.
+defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
 
 # Enable highlight hover effect for the grid view of a stack (Dock)
 defaults write com.apple.dock mouse-over-hilite-stack -bool true
 
-# Change minimize/maximize window effect
+# Use the scale minimize effect. On Tahoe a custom effect is ignored unless
+# slow-motion is allowed.
+defaults write com.apple.dock slow-motion-allowed -bool true
 defaults write com.apple.dock mineffect -string "scale"
 
 # Minimize windows into their application’s icon
 defaults write com.apple.dock minimize-to-application -bool true
 
-# Wipe all (default) app icons from the Dock
-# This is only really useful when setting up a new Mac, or if you don’t use
-# the Dock to launch apps.
-# defaults write com.apple.dock persistent-apps -array
-
-# Show only open applications in the Dock
-# defaults write com.apple.dock static-only -bool true
-
 # Group windows by application in Mission Control
 defaults write com.apple.dock expose-group-by-app -bool true
-
-# Disable Dashboard
-# defaults write com.apple.dashboard mcx-disabled -bool true
-
-# Don’t show Dashboard as a Space
-# defaults write com.apple.dock dashboard-in-overlay -bool true
 
 # Remove the auto-hiding Dock delay
 defaults write com.apple.dock autohide-delay -float 0
@@ -173,18 +144,6 @@ defaults write com.apple.dock autohide-time-modifier -float 0
 
 # Automatically hide and show the Dock
 defaults write com.apple.dock autohide -bool true
-
-# Add iOS & Watch Simulator to Launchpad
-sudo ln -sf "/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app" "/Applications/Simulator.app"
-sudo ln -sf "/Applications/Xcode.app/Contents/Developer/Applications/Simulator (Watch).app" "/Applications/Simulator (Watch).app"
-
-###############################################################################
-# Safari & WebKit                                                             #
-###############################################################################
-
-# Privacy: don’t send search queries to Apple
-defaults write com.apple.Safari UniversalSearchEnabled -bool false
-defaults write com.apple.Safari SuppressSearchSuggestions -bool true
 
 ###############################################################################
 # Mail                                                                        #
@@ -202,16 +161,6 @@ defaults write com.apple.mail DisableInlineAttachmentViewing -bool true
 
 # Disable automatic spell checking
 defaults write com.apple.mail SpellCheckingBehavior -string "NoSpellCheckingEnabled"
-
-###############################################################################
-# Terminal & iTerm 2                                                          #
-###############################################################################
-
-# Only use UTF-8 in Terminal.app
-defaults write com.apple.terminal StringEncodings -array 4
-
-# Don’t display the annoying prompt when quitting iTerm
-defaults write com.googlecode.iterm2 PromptOnQuit -bool false
 
 ###############################################################################
 # Time Machine                                                                #
@@ -238,7 +187,7 @@ defaults write com.apple.ActivityMonitor SortColumn -string "CPUUsage"
 defaults write com.apple.ActivityMonitor SortDirection -int 0
 
 ###############################################################################
-# Address Book, Dashboard, iCal, TextEdit, and Disk Utility                   #
+# TextEdit and Calendar                                                       #
 ###############################################################################
 
 # Use plain text mode for new TextEdit documents
@@ -247,21 +196,25 @@ defaults write com.apple.TextEdit RichText -int 0
 defaults write com.apple.TextEdit PlainTextEncoding -int 4
 defaults write com.apple.TextEdit PlainTextEncodingForWrite -int 4
 
-# Show 12 hours a day
-defaults write com.apple.ical "number of hours displayed" 12
+# Week starts on Monday. The domain is com.apple.iCal; 0 is Sunday.
+defaults write com.apple.iCal "first day of the week" -int 1
 
-# Week should start on Monday
-defaults write com.apple.ical "first day of the week" 1
-
-# Day starts at 9AM
-defaults write com.apple.ical "first minute of work hours" 540
+# Work day starts at 9:00 (540 minutes)
+defaults write com.apple.iCal "first minute of work hours" -int 540
 
 ###############################################################################
 # Date & Time                                                                 #
 ###############################################################################
 
-# Custom DateFormat
-defaults write com.apple.menuextra.clock DateFormat "EEE MMM d  H:mm"
+# Menu bar clock: weekday, date, and 24-hour time, without seconds.
+# DateFormat has been ignored since Big Sur. The date order follows the locale above.
+# ShowDate: 0 = when space allows, 1 = always, 2 = never.
+defaults write com.apple.menuextra.clock IsAnalog -bool false
+defaults write com.apple.menuextra.clock ShowDayOfWeek -bool true
+defaults write com.apple.menuextra.clock ShowDate -int 1
+defaults write com.apple.menuextra.clock Show24Hour -bool true
+defaults write com.apple.menuextra.clock ShowAMPM -bool false
+defaults write com.apple.menuextra.clock ShowSeconds -bool false
 
 ###############################################################################
 # Photos                                                                      #
@@ -274,11 +227,9 @@ defaults -currentHost write com.apple.ImageCapture disableHotPlug -bool true
 # Kill affected applications                                                  #
 ###############################################################################
 
-for app in "Activity Monitor" "Address Book" "Calendar" "Contacts" "cfprefsd" \
-    "Dock" "Finder" "Mail" "Messages" "Photos" "Safari" "SystemUIServer" \
-    "Terminal" "Tweetbot" "iCal"; do
+for app in "Activity Monitor" "Calendar" "cfprefsd" "ControlCenter" \
+    "Dock" "Finder" "Mail" "Photos" "SystemUIServer"; do
     killall "${app}" &> /dev/null
 done
 
 echo "Done. Note that some of these changes require a logout/restart to take effect."
-
